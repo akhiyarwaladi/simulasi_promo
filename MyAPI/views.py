@@ -70,8 +70,10 @@ def approvereject(unit):
 		return (e.args[0])
 
 def cxcontact(request):
+	myDict = dict()
+	form=ApprovalForm(request.POST or None)
 	if request.method=='POST':
-		form=ApprovalForm(request.POST)
+		#form=ApprovalForm(request.POST or None)
 		if form.is_valid():
 				#Firstname = form.cleaned_data['firstname']
 				#Lastname = form.cleaned_data['lastname']
@@ -109,9 +111,11 @@ def cxcontact(request):
 				#else:
 				#	messages.success(request,'Invalid: Your Loan Request Exceeds $25,000 Limit')
 	
-	form=ApprovalForm()
-				
-	return render(request, 'myform/cxform.html', {'form':form})
+	#form=ApprovalForm()
+	context = {'form':form}
+	context.update(myDict)
+	print(context)				
+	return render(request, 'myform/cxform.html', context)
 
 def cxcontact2(request):
 	if request.method=='POST':
